@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/labstack/echo/v4" // go mod tidy เพื่อดึง dependencies ที่จำเป็น
+	"github.com/labstack/echo/v4"            // go mod tidy เพื่อดึง dependencies ที่จำเป็น
+	"github.com/labstack/echo/v4/middleware" // สำหรับ middleware
 )
 
 type Movies struct {
@@ -163,6 +164,8 @@ func main() {
 	// This is the entry point of the application.
 	// You can add your application logic here.
 	e := echo.New()
+	e.Use(middleware.Logger())  // สำหรับ logging
+	e.Use(middleware.Recover()) // สำหรับการ recover จาก panic
 
 	e.GET("/hello", getHello)
 
